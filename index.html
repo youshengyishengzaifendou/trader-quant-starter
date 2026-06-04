@@ -13,8 +13,8 @@
           <p class="eyebrow">Python Quant Backtest</p>
           <h1>ETF / 指数动量策略回测仪表盘</h1>
           <p class="summary">
-            一个纯静态、数据驱动的交易研究展示页。页面读取 CSV 后自动更新指标和净值曲线，
-            用于展示 Python 数据分析、策略回测、风险控制和交易复盘能力。
+            一个纯静态、数据驱动的交易研究可视化页面。页面读取 CSV 后自动更新指标和净值曲线，
+            用于观察策略收益、回撤、波动、交易次数和持仓时间占比。
           </p>
         </div>
         <div class="hero-panel">
@@ -78,13 +78,13 @@
           <p class="eyebrow">Research Process</p>
           <h2>研究流程</h2>
           <p>
-            项目将交易假设拆分为趋势过滤、动量确认、仓位控制和交易成本四个部分，
-            再通过回测观察收益、回撤、波动和交易次数。展示重点是数据处理、规则验证和风险指标分析。
+            策略假设被拆分为趋势过滤、动量确认、仓位控制和交易成本四个部分，
+            再通过回测观察收益、回撤、波动和交易次数。
           </p>
         </article>
         <article>
           <p class="eyebrow">Data Driven</p>
-          <h2>数据如何驱动展示</h2>
+          <h2>数据如何驱动页面</h2>
           <p>
             页面不写死结果，而是读取 `data/backtest_summary.csv` 和 `data/equity_curve.csv`。
             重新运行回测或上传新的 CSV 后，指标卡和净值曲线会随数据变化。

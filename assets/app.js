@@ -81,7 +81,7 @@ function renderMetrics() {
         <article class="metric-card ${tone}">
           <span>${metric.name}</span>
           <strong>${display}</strong>
-          <small>${metric.type === "count" ? "回测期间触发换仓" : "由 CSV 数据自动计算展示"}</small>
+          <small>${metric.type === "count" ? "回测期间触发换仓" : "由 CSV 数据自动计算渲染"}</small>
         </article>
       `;
     })
