@@ -75,12 +75,11 @@
 
       <section class="explain-grid">
         <article>
-          <p class="eyebrow">Interview Talk Track</p>
-          <h2>面试时可以怎么讲</h2>
+          <p class="eyebrow">Research Process</p>
+          <h2>研究流程</h2>
           <p>
-            我用这个项目练习把交易想法拆成可验证的规则：先定义趋势和动量信号，再定义仓位和交易成本，
-            最后用回测观察收益、回撤、波动和交易次数。这个项目不是成熟实盘策略，重点是体现我能用
-            Python 处理行情数据，并关注风险收益比、执行成本和策略失效风险。
+            项目将交易假设拆分为趋势过滤、动量确认、仓位控制和交易成本四个部分，
+            再通过回测观察收益、回撤、波动和交易次数。展示重点是数据处理、规则验证和风险指标分析。
           </p>
         </article>
         <article>
@@ -88,7 +87,7 @@
           <h2>数据如何驱动展示</h2>
           <p>
             页面不写死结果，而是读取 `data/backtest_summary.csv` 和 `data/equity_curve.csv`。
-            重新运行回测或上传新的 CSV 后，指标卡和净值曲线会随数据变化，适合展示“回测数据 -> 前端展示”的完整流程。
+            重新运行回测或上传新的 CSV 后，指标卡和净值曲线会随数据变化。
           </p>
         </article>
       </section>
