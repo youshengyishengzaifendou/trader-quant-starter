@@ -19,10 +19,47 @@
 
 仓位只做 `0` 或 `1`，不使用杠杆。回测中扣除简单交易成本，用于观察策略净值曲线、基准净值曲线和最大回撤。
 
+## 前端展示
+
+项目新增了纯静态前端仪表盘：
+
+```text
+index.html
+assets/
+  style.css
+  app.js
+data/
+  backtest_summary.csv
+  equity_curve.csv
+```
+
+页面会读取 `data/backtest_summary.csv` 和 `data/equity_curve.csv`，自动渲染核心指标和净值曲线。重新运行回测或替换 CSV 后，页面展示会随数据变化。
+
+本地查看：
+
+```bash
+python -m http.server 8000
+```
+
+然后在浏览器打开：
+
+```text
+http://localhost:8000
+```
+
+也可以直接部署到 GitHub Pages，作为在线项目展示页。
+
 ## 项目结构
 
 ```text
 trader-quant-starter/
+  index.html
+  assets/
+    app.js
+    style.css
+  data/
+    backtest_summary.csv
+    equity_curve.csv
   README.md
   requirements.txt
   src/
@@ -53,6 +90,11 @@ date,close
 
 - `backtest_summary.csv`：策略收益、基准收益、最大回撤、年化波动率、夏普比率、交易次数等。
 - `equity_curve.png`：策略净值与基准净值对比图。
+
+同时会在 `data` 目录生成前端专用数据：
+
+- `backtest_summary.csv`：前端指标卡数据。
+- `equity_curve.csv`：前端净值曲线数据。
 
 ## 面试时可以这样介绍
 

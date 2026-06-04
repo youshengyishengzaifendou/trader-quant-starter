@@ -10,6 +10,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "market.csv"
 OUTPUT_DIR = ROOT / "outputs"
+FRONTEND_DATA_DIR = ROOT / "data"
 
 
 def load_market_data() -> pd.DataFrame:
@@ -110,7 +111,23 @@ def run_backtest(df: pd.DataFrame, fee: float = 0.0003) -> tuple[pd.DataFrame, p
 
 def save_outputs(data: pd.DataFrame, summary: pd.DataFrame) -> None:
     OUTPUT_DIR.mkdir(exist_ok=True)
+    FRONTEND_DATA_DIR.mkdir(exist_ok=True)
     summary.to_csv(OUTPUT_DIR / "backtest_summary.csv", index=False, encoding="utf-8-sig")
+    summary.to_csv(FRONTEND_DATA_DIR / "backtest_summary.csv", index=False, encoding="utf-8-sig")
+
+    curve = data[
+        [
+            "date",
+            "close",
+            "position",
+            "strategy_equity",
+            "benchmark_equity",
+            "strategy_ret",
+            "ret",
+        ]
+    ].copy()
+    curve["date"] = curve["date"].dt.strftime("%Y-%m-%d")
+    curve.to_csv(FRONTEND_DATA_DIR / "equity_curve.csv", index=False, encoding="utf-8-sig")
 
     plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "Arial Unicode MS"]
     plt.rcParams["axes.unicode_minus"] = False
@@ -133,7 +150,8 @@ def main() -> None:
 
     print("回测已完成。")
     print(summary.to_string(index=False))
-    print(f"输出文件已保存到：{OUTPUT_DIR}")
+    print(f"报告输出文件已保存到：{OUTPUT_DIR}")
+    print(f"前端数据文件已保存到：{FRONTEND_DATA_DIR}")
 
 
 if __name__ == "__main__":

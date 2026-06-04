@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ETF / 指数动量策略回测仪表盘</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Python Quant Backtest</p>
+          <h1>ETF / 指数动量策略回测仪表盘</h1>
+          <p class="summary">
+            一个纯静态、数据驱动的交易研究展示页。页面读取 CSV 后自动更新指标和净值曲线，
+            用于展示 Python 数据分析、策略回测、风险控制和交易复盘能力。
+          </p>
+        </div>
+        <div class="hero-panel">
+          <span>策略框架</span>
+          <strong>120 日趋势过滤 + 20/60 日动量确认</strong>
+          <small>无杠杆，换仓成本 0.03%，满足条件持仓，否则空仓。</small>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="数据控制">
+        <div>
+          <span class="status-dot"></span>
+          <span id="dataStatus">正在读取本地 CSV 数据...</span>
+        </div>
+        <div class="uploaders">
+          <label>
+            上传指标 CSV
+            <input id="summaryUpload" type="file" accept=".csv,text/csv" />
+          </label>
+          <label>
+            上传净值 CSV
+            <input id="curveUpload" type="file" accept=".csv,text/csv" />
+          </label>
+        </div>
+      </section>
+
+      <section class="metrics" id="metrics" aria-label="核心回测指标"></section>
+
+      <section class="content-grid">
+        <article class="chart-card">
+          <div class="section-title">
+            <div>
+              <p>Equity Curve</p>
+              <h2>策略净值 vs 买入并持有基准</h2>
+            </div>
+            <div class="legend">
+              <span><i class="strategy"></i>动量策略</span>
+              <span><i class="benchmark"></i>买入并持有</span>
+            </div>
+          </div>
+          <div id="chart" class="chart" role="img" aria-label="净值曲线图"></div>
+        </article>
+
+        <aside class="side-card">
+          <div class="section-title compact">
+            <p>Rules</p>
+            <h2>交易规则</h2>
+          </div>
+          <ul class="rules">
+            <li><strong>趋势过滤：</strong>收盘价高于 120 日均线。</li>
+            <li><strong>动量确认：</strong>20 日均线高于 60 日均线。</li>
+            <li><strong>仓位控制：</strong>满足条件持仓，否则空仓。</li>
+            <li><strong>交易成本：</strong>每次换仓扣除 0.03%。</li>
+            <li><strong>风险边界：</strong>不使用杠杆，优先观察回撤。</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="explain-grid">
+        <article>
+          <p class="eyebrow">Interview Talk Track</p>
+          <h2>面试时可以怎么讲</h2>
+          <p>
+            我用这个项目练习把交易想法拆成可验证的规则：先定义趋势和动量信号，再定义仓位和交易成本，
+            最后用回测观察收益、回撤、波动和交易次数。这个项目不是成熟实盘策略，重点是体现我能用
+            Python 处理行情数据，并关注风险收益比、执行成本和策略失效风险。
+          </p>
+        </article>
+        <article>
+          <p class="eyebrow">Data Driven</p>
+          <h2>数据如何驱动展示</h2>
+          <p>
+            页面不写死结果，而是读取 `data/backtest_summary.csv` 和 `data/equity_curve.csv`。
+            重新运行回测或上传新的 CSV 后，指标卡和净值曲线会随数据变化，适合展示“回测数据 -> 前端展示”的完整流程。
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>
