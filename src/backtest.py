@@ -71,36 +71,36 @@ def run_backtest(df: pd.DataFrame, fee: float = 0.0003) -> tuple[pd.DataFrame, p
     summary = pd.DataFrame(
         [
             {
-                "metric": "strategy_total_return",
-                "value": data["strategy_equity"].iloc[-1] - 1,
+                "指标": "策略累计收益",
+                "数值": data["strategy_equity"].iloc[-1] - 1,
             },
             {
-                "metric": "benchmark_total_return",
-                "value": data["benchmark_equity"].iloc[-1] - 1,
+                "指标": "基准累计收益",
+                "数值": data["benchmark_equity"].iloc[-1] - 1,
             },
             {
-                "metric": "strategy_max_drawdown",
-                "value": max_drawdown(data["strategy_equity"]),
+                "指标": "策略最大回撤",
+                "数值": max_drawdown(data["strategy_equity"]),
             },
             {
-                "metric": "benchmark_max_drawdown",
-                "value": max_drawdown(data["benchmark_equity"]),
+                "指标": "基准最大回撤",
+                "数值": max_drawdown(data["benchmark_equity"]),
             },
             {
-                "metric": "strategy_sharpe",
-                "value": sharpe_ratio(data["strategy_ret"]),
+                "指标": "策略夏普比率",
+                "数值": sharpe_ratio(data["strategy_ret"]),
             },
             {
-                "metric": "annualized_volatility",
-                "value": data["strategy_ret"].std() * np.sqrt(252),
+                "指标": "策略年化波动率",
+                "数值": data["strategy_ret"].std() * np.sqrt(252),
             },
             {
-                "metric": "trade_count",
-                "value": int(data["trade"].sum()),
+                "指标": "交易次数",
+                "数值": int(data["trade"].sum()),
             },
             {
-                "metric": "days_in_market_ratio",
-                "value": data["position"].mean(),
+                "指标": "持仓时间占比",
+                "数值": data["position"].mean(),
             },
         ]
     )
@@ -112,12 +112,14 @@ def save_outputs(data: pd.DataFrame, summary: pd.DataFrame) -> None:
     OUTPUT_DIR.mkdir(exist_ok=True)
     summary.to_csv(OUTPUT_DIR / "backtest_summary.csv", index=False, encoding="utf-8-sig")
 
+    plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "Arial Unicode MS"]
+    plt.rcParams["axes.unicode_minus"] = False
     plt.figure(figsize=(10, 5))
-    plt.plot(data["date"], data["strategy_equity"], label="Strategy")
-    plt.plot(data["date"], data["benchmark_equity"], label="Buy and Hold", alpha=0.75)
-    plt.title("Momentum Strategy Backtest")
-    plt.xlabel("Date")
-    plt.ylabel("Equity")
+    plt.plot(data["date"], data["strategy_equity"], label="动量策略")
+    plt.plot(data["date"], data["benchmark_equity"], label="买入并持有基准", alpha=0.75)
+    plt.title("动量策略回测净值曲线")
+    plt.xlabel("日期")
+    plt.ylabel("净值")
     plt.legend()
     plt.grid(alpha=0.25)
     plt.tight_layout()
@@ -129,9 +131,9 @@ def main() -> None:
     data, summary = run_backtest(df)
     save_outputs(data, summary)
 
-    print("Backtest completed.")
+    print("回测已完成。")
     print(summary.to_string(index=False))
-    print(f"Outputs saved to: {OUTPUT_DIR}")
+    print(f"输出文件已保存到：{OUTPUT_DIR}")
 
 
 if __name__ == "__main__":
